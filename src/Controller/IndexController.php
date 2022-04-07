@@ -11,21 +11,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class IndexController extends AbstractController
 {
     /**
-     * @Route("/emna", name="app_emna")
+     * @Route("/", name="schirra_test")
      */
     public function read()
     {
-        $fileType = $this->getParameter('app.file_type');
-        var_dump($fileType);
-
-        $jsonFile = new JsonFile(); 
-        $fileReader = new FileReader($jsonFile, $fileType);
+        // $fileType = $this->getParameter('app.file_type');
+        // $jsonFile = new JsonFile(); 
+        // $fileReader = new FileReader($jsonFile, $fileType);
         // var_dump($fileReader);
         // echo('<br>');
-        var_dump($fileReader->readFileType()); die;
+        // var_dump($fileReader->readFileType()); die;
         // var_dump($jsonData);
         // foreach($jsonData as $data){
         //     var_dump($data);
         // }
+        return $this->render('home.html.twig');
     }
 }
