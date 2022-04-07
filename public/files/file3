@@ -1,0 +1,6 @@
+name,height,mass,hair_color,skin_color,eye_color,birth_year,gender
+Luke Skywalker,172,77,blond,fair,blue,19BBY,male
+C-3PO,167,75,n/a,gold,yellow,112BBY,n/a
+R2-D2,96,32,n/a,"white, blue",red,33BBY,n/a
+Darth Vader,202,136,none,white,yellow,41.9BBY,male
+Leia Organa,150,49,brown,light,brown,19BBY,female
