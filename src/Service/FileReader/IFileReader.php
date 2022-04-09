@@ -4,5 +4,5 @@ namespace App\Service\FileReader;
 
 interface IFileReader
 {
-    public function readFile($fileType);
+    public function readFile($fileType , $doctrine);
 }

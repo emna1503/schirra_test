@@ -18,9 +18,9 @@ class FileReader
         $this->fileReader = $fileReader;
     }
 
-    public function readFileType()
+    public function readFileType($doctrine)
     {
-        $this->fileReader->readFile($this->fileType);
+        $this->fileReader->readFile($this->fileType, $doctrine);
     }
     
 }
