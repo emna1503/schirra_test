@@ -11,8 +11,6 @@ class XmlFile implements IFileReader
 {
     public function readFile($contentFile, $entityManager)
     {
-        //$entityManager = $doctrine->getManager();
-       // $xml = file_get_contents('C:\xampp\htdocs\schirra_test\public\files\file2');
         $xmlReader = new SimpleXMLElement($contentFile['content']);
         $xmlData = (array) $xmlReader->results;
         $xmlDataObjects = (array) $xmlData["result"];

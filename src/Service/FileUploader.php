@@ -39,7 +39,8 @@ class FileUploader
         return $fileName;
     }
 
-    public function readFiles($path_file){
+    public function readFiles($path_file)
+    {
         clearstatcache();
         ignore_user_abort(true);
             if (file_exists($path_file)) {
@@ -68,12 +69,14 @@ class FileUploader
         return  array('linkfile'=>$path_file,'content'=>$contentFile, 'extension'=>$fileExtension);
     }
 
-    public function isJson($string) {
+    public function isJson($string)
+    {
         json_decode($string);
         return json_last_error() === JSON_ERROR_NONE;
     }
 
-    public function isXml($string){
+    public function isXml($string)
+    {
         if(substr($string, 0, 5) == "<?xml") {
             return true;
         } else {
@@ -81,7 +84,8 @@ class FileUploader
         }
     }
     
-    public function findFileType($contentFile){
+    public function findFileType($contentFile)
+    {
         if($this->isJson($contentFile) == true){
             $this->extension = 'json';
         }elseif($this->isXml($contentFile) == true){
