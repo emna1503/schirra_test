@@ -5,7 +5,11 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     app.file_type: "%env(FILE_TYPE)%"
+    files_directory: '%kernel.project_dir%/public/files'
 services:
+    App\Services\FileUploader:
+        arguments:
+            $targetDirectory: '%files_directory%'
     App\Service\FileReader\FileReader:
         arguments:
             $contentFile: '%app.file_type%'

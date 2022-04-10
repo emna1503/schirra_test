@@ -3,15 +3,17 @@
 namespace App\Service\FileReader;
 
 use App\Entity\Users;
+use Doctrine\Persistence\ManagerRegistry;
 use SimpleXMLElement;
+
 
 class XmlFile implements IFileReader
 {
-    public function readFile($fileType, $doctrine)
+    public function readFile($contentFile, $entityManager)
     {
-        $entityManager = $doctrine->getManager();
-        $xml = file_get_contents('C:\xampp\htdocs\schirra_test\public\files\file2');
-        $xmlReader = new SimpleXMLElement($xml);
+        //$entityManager = $doctrine->getManager();
+       // $xml = file_get_contents('C:\xampp\htdocs\schirra_test\public\files\file2');
+        $xmlReader = new SimpleXMLElement($contentFile['content']);
         $xmlData = (array) $xmlReader->results;
         $xmlDataObjects = (array) $xmlData["result"];
 
@@ -19,7 +21,7 @@ class XmlFile implements IFileReader
             $data = (array) $data;
             $user = new Users;
             $user->setName($data['name']); 
-            $user->setHeight($data['height']); 
+            $user->getHeight($data['height']); 
             $user->setMass($data['mass']); 
             $user->setHairColor($data['hair_color']); 
             $user->setSkinColor($data['skin_color']); 

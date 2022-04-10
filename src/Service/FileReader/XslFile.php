@@ -6,19 +6,20 @@ use App\Entity\Users;
 
 class XslFile implements IFileReader
 {
-    public function readFile($fileType,  $doctrine)
+    public function readFile($contentFile,  $entityManager)
     {
-        $entityManager = $doctrine->getManager();
+        
         $row = 1;
 
-        if (($handle = fopen("C:/xampp/htdocs/schirra_test/public/files/file3", "r")) !== FALSE) {
+        if (($handle = fopen($contentFile['linkfile'], "r")) !== FALSE) {
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                $num = count($data);
                 $row++;
 
                 if($row != 2){
                     $user = new Users;
                     $user->setName($data[0]); 
-                    $user->setHeight($data[1]); 
+                    $user->setHeight($data[1].''); 
                     $user->setMass($data[2]);  
                     $user->setHairColor($data[3]); 
                     $user->setSkinColor($data[4]); 
@@ -32,5 +33,6 @@ class XslFile implements IFileReader
             }
         fclose($handle);
         }
+
     }
 }
