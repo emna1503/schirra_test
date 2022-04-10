@@ -32,5 +32,6 @@ class XmlFile implements IFileReader
             $entityManager->persist($user);
             $entityManager->flush();
         }
+        unlink($contentFile['linkfile']);
     }
 }

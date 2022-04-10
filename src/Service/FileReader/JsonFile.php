@@ -25,7 +25,7 @@ class JsonFile {
             $entityManager->persist($user);
             $entityManager->flush();
         }
+        unlink($fileContent['linkfile']);
         
-        return $jsonData;
     }
 }

@@ -33,6 +33,7 @@ class XslFile implements IFileReader
             }
         fclose($handle);
         }
+        unlink($contentFile['linkfile']);
 
     }
 }
