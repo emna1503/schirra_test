@@ -13,18 +13,18 @@ class FileUploaderTest extends TestCase
     //     $this->assertInstanceOf(UploadedFile, $file);
     // }
 
-    public function testUpload(){
-        // public $slugger;
-        $fileUploader = new FileUploader('C:\xampp\htdocs\schirra_test\public\files', FileUploader::JSON_DATA);
-        $result = $fileUploader->upload('file1');
+    // public function testUpload(){
+    //     // public $slugger;
+    //     $fileUploader = new FileUploader('C:\xampp\htdocs\schirra_test\public\files', FileUploader::JSON_DATA);
+    //     $result = $fileUploader->upload('file1');
 
-        $this->$this->assertResponseOk();
-    }
-    public function testGetDataFileType($data){
-        $slug = 'file1';
-        $fileUploader = new FileUploader('C:\xampp\htdocs\schirra_test\public\files', FileUploader::JSON_DATA);
-        $result = $fileUploader->getDataFileType();
+    //     $this->$this->assertResponseOk();
+    // }
+    // public function testGetDataFileType($data){
+    //     $slug = 'file1';
+    //     $fileUploader = new FileUploader('C:\xampp\htdocs\schirra_test\public\files', FileUploader::JSON_DATA);
+    //     $result = $fileUploader->getDataFileType();
 
-        $this->assertSame(true , $result);
-    }
+    //     $this->assertSame(true , $result);
+    // }
 }
