@@ -6,7 +6,7 @@ class FileReader
 {
     private $fileReader;
     private $fileType;
-
+   
     public function __construct(IFileReader $fileReader , $contentFile)
     {
         $this->fileReader = $fileReader;
@@ -22,5 +22,4 @@ class FileReader
     {
         $this->fileReader->readFile($this->fileType, $doctrine);
     }
-    
 }
