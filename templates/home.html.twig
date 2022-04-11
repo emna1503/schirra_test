@@ -1,8 +1,18 @@
-<h1>Adding a new file</h1>
+{% extends 'base.html.twig' %}
 
-{{ form_start(form) }}
-    {# ... #}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
 
-    {{ form_row(form.name) }}
+{% block body %}
 
-{{ form_end(form) }}
+    <h1 class="col d-flex justify-content-center">Welcome to Emna's SchirraTest!</h1>
+    <hr>
+    <h2>Adding a new file</h2>
+    <br>
+    {{ form_start(form) }}
+    
+        {{ form_row(form.name) }}
+    <br>
+
+    {{ form_end(form) }}
+
+{% endblock %}
