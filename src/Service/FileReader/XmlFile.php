@@ -3,17 +3,16 @@
 namespace App\Service\FileReader;
 
 use App\Entity\Users;
-use Doctrine\Persistence\ManagerRegistry;
 use SimpleXMLElement;
-
+use XMLReader;
 
 class XmlFile implements IFileReader
 {
-    public function readFile($contentFile, $entityManager)
+    public function readFile($fileType, $doctrine)
     {
-        //$entityManager = $doctrine->getManager();
-       // $xml = file_get_contents('C:\xampp\htdocs\schirra_test\public\files\file2');
-        $xmlReader = new SimpleXMLElement($contentFile['content']);
+        $entityManager = $doctrine->getManager();
+        $xml = file_get_contents('C:\xampp\htdocs\schirra_test\public\files\file2');
+        $xmlReader = new SimpleXMLElement($xml);
         $xmlData = (array) $xmlReader->results;
         $xmlDataObjects = (array) $xmlData["result"];
 
@@ -32,6 +31,5 @@ class XmlFile implements IFileReader
             $entityManager->persist($user);
             $entityManager->flush();
         }
-        unlink($contentFile['linkfile']);
     }
 }

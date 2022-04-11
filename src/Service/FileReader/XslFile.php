@@ -6,16 +6,16 @@ use App\Entity\Users;
 
 class XslFile implements IFileReader
 {
-    public function readFile($contentFile,  $entityManager)
+    public function readFile($fileType,  $doctrine)
     {
-        
+        $entityManager = $doctrine->getManager();
+        $xsl = file_get_contents('C:\xampp\htdocs\schirra_test\public\files\file3');
         $row = 1;
-
-        if (($handle = fopen($contentFile['linkfile'], "r")) !== FALSE) {
+        if (($handle = fopen("C:/xampp/htdocs/schirra_test/public/files/file3", "r")) !== FALSE) {
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
                 $num = count($data);
+                // echo "<p> $num fields in line $row: <br /></p>\n";
                 $row++;
-
                 if($row != 2){
                     $user = new Users;
                     $user->setName($data[0]); 
@@ -30,10 +30,9 @@ class XslFile implements IFileReader
                     $entityManager->persist($user);
                     $entityManager->flush();
                 }
-            }
+        }
         fclose($handle);
         }
-        unlink($contentFile['linkfile']);
 
     }
 }

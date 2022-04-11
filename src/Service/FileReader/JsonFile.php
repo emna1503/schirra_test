@@ -4,12 +4,19 @@ namespace App\Service\FileReader;
 
 use App\Entity\Users;
 
-class JsonFile {
+class JsonFile implements IFileReader
+{
+    public function isJson($string) {
+        json_decode($string);
+        return json_last_error() === JSON_ERROR_NONE;
+    }
 
-    public function readFile($fileContent, $entityManager)
+    public function readFile($fileType, $doctrine):array
     {        
+        $json = file_get_contents('C:\xampp\htdocs\schirra_test\public\files\file1');
         // Decode the JSON file
-        $jsonData = json_decode($fileContent['content'],true);
+        $jsonData = json_decode($json,true);
+        $entityManager = $doctrine->getManager();
 
         foreach($jsonData["results"] as $data){
             $user = new Users;
@@ -25,7 +32,7 @@ class JsonFile {
             $entityManager->persist($user);
             $entityManager->flush();
         }
-        unlink($fileContent['linkfile']);
         
+        return $jsonData;
     }
 }
