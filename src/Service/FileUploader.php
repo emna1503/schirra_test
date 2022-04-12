@@ -35,7 +35,8 @@ class FileUploader
 
         return $fileName;
     }
-        
+    
+    //check file type before uploading
     public function getDataFileType($data){
         json_decode($data);
 
