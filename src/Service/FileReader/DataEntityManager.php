@@ -1,5 +1,5 @@
 <?php
-// src/Service/FileReader/JsonFile.php
+
 namespace App\Service\FileReader;
 
 use App\Entity\Users;
@@ -12,7 +12,7 @@ class DataEntityManager
         foreach($datas as $data){
             $user = new Users;
 
-            if($isXml){
+            if($isXml){ 
                 $data = (array) $data;
             }
 

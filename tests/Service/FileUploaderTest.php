@@ -14,7 +14,7 @@ class FileUploaderTest extends KernelTestCase
      */
     private $jsonFile;
     /**
-     * @var UploadedFile
+     * @var UploadedFile 
      */
     private $xmlFile;
     /**
@@ -28,9 +28,9 @@ class FileUploaderTest extends KernelTestCase
 
     public function __construct()
     {
-        $this->jsonFile = new UploadedFile('/path/to/file.json', 'file.json', 'application/json', filesize("'/path/to/file.json'"));
-        $this->xmlFile = new UploadedFile('/path/to/file.xml', 'file.json', 'application/xml', filesize("'/path/to/file.xml'"));
-        $this->csvFile = new UploadedFile('/path/to/file.csv', 'file.json', 'text/csv', filesize("'/path/to/file.csv'"));
+        $this->jsonFile = new UploadedFile('C:\xampp\htdocs\schirra_test\public\files\file1', 'file1', 'application/json', filesize("'C:/xampp/htdocs/schirra_test/public/files/file1'"));
+        $this->xmlFile = new UploadedFile('C:\xampp\htdocs\schirra_test\public\files\file2', 'file2', 'application/xml', filesize("'C:/xampp/htdocs/schirra_test/public/files/file2'"));
+        $this->csvFile = new UploadedFile('C:\xampp\htdocs\schirra_test\public\files\file3', 'file3', 'text/csv', filesize("'C:/xampp/htdocs/schirra_test/public/files/file3'"));
 
 
         self::bootKernel();

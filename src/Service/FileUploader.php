@@ -1,78 +1,55 @@
 <?php
+// src/Service/FileUploader.php
+namespace App\Services;
 
-namespace App\Tests\Service;
-
-use App\Services\FileUploader;
-use PHPUnit\Framework\TestCase;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-
-class FileUploaderTest extends KernelTestCase
+class FileUploader
 {
-    /**
-     * @var UploadedFile
-     */
-    private $jsonFile;
-    /**
-     * @var UploadedFile
-     */
-    private $xmlFile;
-    /**
-     * @var UploadedFile
-     */
-    private $csvFile;
-    /**
-     * @var FileUploader
-     */
-    private $fileUploader;
+    const JSON_DATA = 'json';
+    const XML_DATA = 'xml';
+    const XSL_DATA = 'xsl';
 
-    public function __construct()
+    private $targetDirectory;
+    private $slugger;
+
+    public function __construct($targetDirectory, SluggerInterface $slugger)
     {
-        $this->jsonFile = new UploadedFile('C:\xampp\htdocs\schirra_test\public\files\file1', 'file.json', 'application/json', filesize("'/path/to/file.json'"));
-        $this->xmlFile = new UploadedFile('C:\xampp\htdocs\schirra_test\public\files\file2', 'file.json', 'application/xml', filesize("'/path/to/file.xml'"));
-        $this->csvFile = new UploadedFile('C:\xampp\htdocs\schirra_test\public\files\file3', 'file.json', 'text/csv', filesize("'/path/to/file.csv'"));
-
-
-        self::bootKernel();
-
-        $container = static::getContainer();
-
-        $this->fileUploader = $container->get(FileUploader::class);
+        $this->targetDirectory = $targetDirectory;
+        $this->slugger = $slugger;
     }
 
-    public function testUpload()
+    public function upload(UploadedFile $file)
     {
-        $resultingFile = $this->fileUploader->upload($this->xmlFile);
+        $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $safeFilename = $this->slugger->slug($originalFilename);
+        $fileName = $safeFilename;
 
-        $this->assertNotEmpty($resultingFile, 'The file was not uploaded.');
+        try {
+            $file->move($this->getTargetDirectory(), $fileName);
+        } catch (FileException $e) {
+            // ... handle exception if something happens during file upload
+        }
 
+        return $fileName;
+    }
+        
+    public function getDataFileType($data){
+        json_decode($data);
+
+        if(json_last_error() === JSON_ERROR_NONE){
+            return self::JSON_DATA;
+        }elseif(substr($data, 0, 5) == "<?xml"){
+            return self::XML_DATA;
+        }else{
+            return self::XSL_DATA;
+        }
     }
 
-    public function testRecognition()
+    public function getTargetDirectory()
     {
-        $rndJson = '{"string":"Hello World"}';
-        $rndXml = '<?xml version="1.0" encoding="UTF-8"?>
-<root><string>Hello World</string></root>';
-        $rndCsv = 'string
-Hello World';
-
-        $isJson = $this->fileUploader->getDataFileType($rndJson);
-        $isXml = $this->fileUploader->getDataFileType($rndXml);
-        $isCsv = $this->fileUploader->getDataFileType($rndCsv);
-
-        $this->assertTrue($isJson, 'Could not detect JSON correctly');
-        $this->assertTrue($isXml, 'Could not detect XML correctly');
-        $this->assertTrue($isCsv, 'Could not detect CSV correctly');
+        return $this->targetDirectory;
     }
-
-    // public function testGetDataFileType($data)
-    // {
-    //     $slug = 'file1';
-    //     $fileUploader = new FileUploader('C:\xampp\htdocs\schirra_test\public\files', FileUploader::JSON_DATA);
-    //     $result = $fileUploader->getDataFileType();
-
-    //     $this->assertSame(true, $result);
-    // }
 }
